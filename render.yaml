@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: repuestos-salazar-backend
+    env: node
+    region: oregon
+    plan: starter
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGODB_URI
+        value: ""
