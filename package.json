@@ -3,9 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-  "start": "node index.js",
-  "dev": "nodemon index.js",
-  "seed": "node seedRun.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "seed": "node seedRun.js",
+    "seed:products": "node seedProducts.js",
+    "inventory:stock": "node manageInventory.js stock",
+    "inventory:prices": "node manageInventory.js prices",
+    "inventory:stats": "node manageInventory.js stats",
+    "inventory:all": "node manageInventory.js all",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -21,6 +28,14 @@
     "react-toastify": "^11.0.5"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "jest": "^29.0.0",
+    "supertest": "^6.3.3",
+    "mongodb-memory-server": "^8.12.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": ["<rootDir>/tests/setup.js"],
+    "testTimeout": 30000
   }
 }
