@@ -19,6 +19,11 @@
     "test": "jest --runInBand",
     "test:watch": "jest --watch"
   },
+    "inventory:stats": "node manageInventory.js stats",
+    "inventory:all": "node manageInventory.js all",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

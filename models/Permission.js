@@ -8,7 +8,7 @@ const PermissionSchema = new mongoose.Schema({
     trim: true,
     minlength: 3,
     maxlength: 50,
-    match: /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/ // Solo letras y espacios (ajusta si necesitas otros caracteres)
+    match: /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s_]+$/ // Letras, espacios y guiones bajos
   },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now }

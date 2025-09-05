@@ -80,6 +80,47 @@ app.get('/api/test', (req, res) => {
   res.json({ status: 'ok' });
 });
 
+// Endpoint de health check para verificar MongoDB
+app.get('/api/health', async (req, res) => {
+  try {
+    const dbState = mongoose.connection.readyState;
+    const states = {
+      0: 'disconnected',
+      1: 'connected',
+      2: 'connecting',
+      3: 'disconnecting'
+    };
+    
+    if (dbState === 1) {
+      // Verificar que podemos hacer una consulta básica
+      const Category = require('./models/Category');
+      const categoryCount = await Category.countDocuments();
+      
+      res.json({
+        status: 'healthy',
+        database: states[dbState],
+        categoriesCount: categoryCount,
+        timestamp: new Date().toISOString(),
+        mongodb_uri: process.env.MONGODB_URI ? 'configured' : 'missing'
+      });
+    } else {
+      res.status(503).json({
+        status: 'unhealthy',
+        database: states[dbState],
+        timestamp: new Date().toISOString(),
+        mongodb_uri: process.env.MONGODB_URI ? 'configured' : 'missing'
+      });
+    }
+  } catch (error) {
+    res.status(503).json({
+      status: 'error',
+      error: error.message,
+      timestamp: new Date().toISOString(),
+      mongodb_uri: process.env.MONGODB_URI ? 'configured' : 'missing'
+    });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 
 // Si este archivo es ejecutado directamente, iniciar el servidor.
